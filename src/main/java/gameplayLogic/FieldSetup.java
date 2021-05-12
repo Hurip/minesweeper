@@ -1,9 +1,9 @@
-package minefieldSetup;
+package gameplayLogic;
 
 import main.Field;
 import java.util.Scanner;
 
-public class Setup {
+public class FieldSetup {
 
     private static int numberOfFields;
     private static int numberOfMines;

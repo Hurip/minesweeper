@@ -1,26 +1,20 @@
 package main;
 
-import minefieldSetup.Setup;
+import gameplayLogic.FieldSetup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gameplayLogic.Printer;
 import gameplayLogic.Moves;
 
-import java.util.Scanner;
-
-
 public class Main {
 
     private static Logger logger = LoggerFactory.getLogger(Main.class);
-    private static int numberOfFields;
-    private static int numberOfMines;
-    private static Field[][] field;
 
     public static void main(String[] args){
         logger.trace("Please type in the difficulty you want. easy or normal or hard");
-        Setup.selectDifficulty();
-        int numberOfFields = Setup.getNumberOfFields();
-        int numberOfMines = Setup.getNumberOfMines();
+        FieldSetup.selectDifficulty();
+        int numberOfFields = FieldSetup.getNumberOfFields();
+        int numberOfMines = FieldSetup.getNumberOfMines();
 
         Field[][] field = new Field[numberOfFields][numberOfFields];
 
@@ -30,8 +24,8 @@ public class Main {
             }
         }
 
-        Setup.randomizeMines(field);
-        Setup.setNeighbours(field);
+        FieldSetup.randomizeMines(field);
+        FieldSetup.setNeighbours(field);
 
         Printer.duringGamePrint(field, numberOfFields);
 
