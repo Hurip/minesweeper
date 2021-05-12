@@ -15,12 +15,10 @@ public class Setup {
 
     public static void randomizeMines(Field[][] field){ //Assigns the mines randomly on the minefield
 
-        int randomx;
-        int randomy;
 
         for( int i = 0; i < numberOfMines; i++){
-            randomx = (int)(Math.random() * numberOfFields);
-            randomy = (int)(Math.random() * numberOfFields);
+            int randomx = (int)(Math.random() * numberOfFields);
+            int randomy = (int)(Math.random() * numberOfFields);
 
             if( field[randomx][randomy].isMine() ){
                 i--;
@@ -56,7 +54,6 @@ public class Setup {
         }
     }
 
-
     public static void setNeighbours(Field[][] field){
 
         for( int i = 0; i < field.length; i++){
@@ -65,11 +62,11 @@ public class Setup {
 
                     int[][] neighbours = Field.getNeighboursIndexes(i,j,numberOfFields);
 
-                    for( int rowcount = 0; rowcount< neighbours.length; rowcount++){
-                        int rowindex = neighbours[rowcount][0];
-                        int colindex = neighbours[rowcount][1];
+                    for(int[] neighbour : neighbours) {
+                        int rowindex = neighbour[0];
+                        int colindex = neighbour[1];
 
-                        field[rowindex][colindex].setNeighborMines( field[rowindex][colindex].getNeighborMines()+1 );
+                        field[rowindex][colindex].setNeighborMines(field[rowindex][colindex].getNeighborMines() + 1);
                     }
                 }
             }
