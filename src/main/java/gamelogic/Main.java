@@ -28,7 +28,7 @@ public class Main {
         randomizeMines(field);
         setNeighbours(field);
 
-        correctPrint();
+        print();
 
     }
 
@@ -177,9 +177,9 @@ public class Main {
                         field[i+1][j+1].setNeighborMines( field[i+1][j+1].getNeighborMines()+1 );
                     }
                     else if( i == field.length-1 && j == 0){
-                        field[i-1][j].setNeighborMines( field[i+1][j].getNeighborMines()+1 );
-                        field[i][j+1].setNeighborMines( field[i][j+1].getNeighborMines()+1 );
-                        field[i-1][j+1].setNeighborMines( field[i+1][j+1].getNeighborMines()+1 );
+                        field[i-1][j].setNeighborMines( field[i-1][j].getNeighborMines()+1 );
+                        field[i][j-1].setNeighborMines( field[i][j-1].getNeighborMines()+1 );
+                        field[i+1][j-1].setNeighborMines( field[i+1][j-1].getNeighborMines()+1 );
                     }
                     else if( i == 0 && j == field.length-1){
                         field[i+1][j].setNeighborMines( field[i+1][j].getNeighborMines()+1 );
@@ -187,12 +187,49 @@ public class Main {
                         field[i+1][j-1].setNeighborMines( field[i+1][j+1].getNeighborMines()+1 );
                     }
                     else if( i == field.length-1 && j == field.length-1){
-                        field[i-1][j].setNeighborMines( field[i+1][j].getNeighborMines()+1 );
-                        field[i][j-1].setNeighborMines( field[i][j+1].getNeighborMines()+1 );
-                        field[i-1][j-1].setNeighborMines( field[i+1][j+1].getNeighborMines()+1 );
+                        field[i-1][j].setNeighborMines( field[i-1][j].getNeighborMines()+1 );
+                        field[i][j-1].setNeighborMines( field[i][j-1].getNeighborMines()+1 );
+                        field[i-1][j-1].setNeighborMines( field[i-1][j-1].getNeighborMines()+1 );
+                    }
+                    else if( i == 0 ){
+                        field[i][j-1].setNeighborMines( field[i][j-1].getNeighborMines()+1 );
+                        field[i+1][j-1].setNeighborMines( field[i+1][j-1].getNeighborMines()+1 );
+                        field[i+1][j].setNeighborMines( field[i+1][j].getNeighborMines()+1 );
+                        field[i+1][j+1].setNeighborMines( field[i+1][j+1].getNeighborMines()+1 );
+                        field[i][j+1].setNeighborMines( field[i][j+1].getNeighborMines()+1 );
+                    }
+                    else if( i == field.length-1 ){
+                        field[i][j-1].setNeighborMines( field[i][j-1].getNeighborMines()+1 );
+                        field[i-1][j-1].setNeighborMines( field[i-1][j-1].getNeighborMines()+1 );
+                        field[i-1][j].setNeighborMines( field[i-1][j].getNeighborMines()+1 );
+                        field[i-1][j+1].setNeighborMines( field[i-1][j+1].getNeighborMines()+1 );
+                        field[i][j+1].setNeighborMines( field[i][j+1].getNeighborMines()+1 );
+                    }
+                    else if( j == 0 ){
+                        field[i-1][j].setNeighborMines( field[i-1][j].getNeighborMines()+1 );
+                        field[i-1][j+1].setNeighborMines( field[i-1][j+1].getNeighborMines()+1 );
+                        field[i][j+1].setNeighborMines( field[i][j+1].getNeighborMines()+1 );
+                        field[i+1][j+1].setNeighborMines( field[i+1][j+1].getNeighborMines()+1 );
+                        field[i+1][j].setNeighborMines( field[i+1][j].getNeighborMines()+1 );
+                    }
+                    else if( j == field.length-1 ){
+                        field[i-1][j].setNeighborMines( field[i-1][j].getNeighborMines()+1 );
+                        field[i-1][j-1].setNeighborMines( field[i-1][j-1].getNeighborMines()+1 );
+                        field[i][j-1].setNeighborMines( field[i][j-1].getNeighborMines()+1 );
+                        field[i+1][j-1].setNeighborMines( field[i+1][j-1].getNeighborMines()+1 );
+                        field[i+1][j].setNeighborMines( field[i+1][j].getNeighborMines()+1 );
+                    }
+                    else{
+                        field[i-1][j-1].setNeighborMines( field[i-1][j-1].getNeighborMines()+1 );
+                        field[i-1][j].setNeighborMines( field[i-1][j].getNeighborMines()+1 );
+                        field[i-1][j+1].setNeighborMines( field[i-1][j+1].getNeighborMines()+1 );
+                        field[i][j+1].setNeighborMines( field[i][j+1].getNeighborMines()+1 );
+                        field[i+1][j+1].setNeighborMines( field[i+1][j+1].getNeighborMines()+1 );
+                        field[i+1][j].setNeighborMines( field[i+1][j].getNeighborMines()+1 );
+                        field[i+1][j-1].setNeighborMines( field[i+1][j-1].getNeighborMines()+1 );
+                        field[i][j-1].setNeighborMines( field[i][j-1].getNeighborMines()+1 );
                     }
                 }
-
             }
         }
     }
