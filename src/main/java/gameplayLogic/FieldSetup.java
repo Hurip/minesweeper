@@ -6,6 +6,14 @@ import org.slf4j.LoggerFactory;
 
 public class FieldSetup {
 
+    public static int getNumberOfFields() {
+        return numberOfFields;
+    }
+
+    public static int getNumberOfMines() {
+        return numberOfMines;
+    }
+
     private static int numberOfFields;
     private static int numberOfMines;
     public static Field[][] field;
@@ -15,15 +23,6 @@ public class FieldSetup {
         return field;
     }
 
-
-
-    public static int getNumberOfFields() {
-        return numberOfFields;
-    }
-
-    public static int getNumberOfMines() {
-        return numberOfMines;
-    }
 
 
     public static void initField(int numberOfFields, int numberOfMines){
@@ -139,7 +138,7 @@ public class FieldSetup {
         for(int colNum = col - 1; colNum <= (col + 1); colNum++  ) {
             for (int rowNum = row - 1; rowNum <= (row + 1); rowNum++  ) {
                 if(!((colNum == col) && (rowNum == row))) {
-                    if(Field.withinGrid (colNum, rowNum, numberOfFields) && !field[colNum][rowNum].isWasChecked() ) {
+                    if(withinGrid (colNum, rowNum) && !field[colNum][rowNum].isWasChecked() ) {
                         rowcount++;
                     }
                 }
@@ -151,7 +150,8 @@ public class FieldSetup {
         for(int colNum = col - 1; colNum <= (col + 1); colNum++  ) {
             for (int rowNum = row - 1; rowNum <= (row + 1); rowNum++  ) {
                 if(!((colNum == col) && (rowNum == row))) {
-                    if(Field.withinGrid (colNum, rowNum, numberOfFields) && !field[colNum][rowNum].isWasChecked() ) {
+                    if(withinGrid (colNum, rowNum) && !field[colNum][rowNum].isWasChecked() ) {
+                        neighbours[rowcount][0] = rowNum;
                         neighbours[rowcount][0] = rowNum;
                         neighbours[rowcount][1] = colNum;
                         field[colNum][rowNum].setWasChecked(true);
@@ -190,5 +190,35 @@ public class FieldSetup {
         else {
             return true;
         }
+    }
+
+    public static boolean didwin() {
+        int numberOfClicked = 0;
+
+        for(int i = 0; i < numberOfFields; i++){
+            for(int j = 0; j < numberOfFields; j++){
+                if( field[i][j].isClicked() ){
+                    numberOfClicked++;
+                }
+            }
+        }
+        if( numberOfClicked == (numberOfFields*numberOfFields - numberOfMines) ){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static boolean didlost() {
+
+        for( int i = 0; i < numberOfFields; i++){
+            for( int j = 0; j< numberOfFields; j++){
+                if(field[i][j].isMine() && field[i][j].isClicked()){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
