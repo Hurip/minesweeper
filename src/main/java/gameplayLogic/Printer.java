@@ -1,6 +1,5 @@
 package gameplayLogic;
 
-import main.Field;
 
 public class Printer {
 
