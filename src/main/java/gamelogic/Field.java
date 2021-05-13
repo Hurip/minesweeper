@@ -9,5 +9,5 @@ public class Field {
     private int neighborMines = 0;
     private boolean wasChecked = false;
 
-    
+
 }
