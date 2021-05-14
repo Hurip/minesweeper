@@ -96,7 +96,7 @@ public class Leaderboard {
             em.close();
         }
     }
-    
+
 
     /**
      * Initializes the starting timestamp.
