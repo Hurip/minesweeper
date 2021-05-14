@@ -15,6 +15,13 @@
             <email>hurii14@gmail.com</email>
         </developer>
     </developers>
+
+    <scm>
+        <url>https://github.com/Hurip/minesweeper</url>
+        <connection>scm:git:git://github.com/Hurip/minesweeper.git</connection>
+        <developerConnection>scm:git:git@github.com:Hurip/minesweeper.git</developerConnection>
+    </scm>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
