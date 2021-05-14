@@ -20,12 +20,12 @@ public class Leaderboard {
     /**
      * The timestamp when the game was started.
      */
-    private LocalDateTime startingDate;
+    private static LocalDateTime startingDate;
 
     /**
      * The timestamp when the game was started in miliseconds.
      */
-    private long startTime;
+    private static long startTime;
 
     /**
      * The timestamp when the game ended in miliseconds.
@@ -37,23 +37,27 @@ public class Leaderboard {
      */
     private static boolean didwin;
 
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("minesweeper");
+    private static String difficulty;
+
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("minesweeper");
 
     /**
      * Makes a new result.
      *
      * @param name the name of the player
      */
-    public void makeNewResult(String name){
+    public static void makeNewResult(String name){
         endTime = System.currentTimeMillis();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
+        logger.trace("Saving result...");
         result.setName(name);
         result.setSecondsTaken( (endTime - startTime) / 1000F);
         result.setStartingDate(startingDate.format(formatter) );
         result.setDidwin(didwin);
+        result.setDifficulty(difficulty);
         saveResult(result);
+        logger.trace("Result saved.");
     }
 
     /**
@@ -61,13 +65,14 @@ public class Leaderboard {
      *
      * @param result the result that needs to be uploaded
      */
-    public void saveResult( Result result){
+    public static void saveResult( Result result){
         EntityManager em = emf.createEntityManager();
         try {
+            logger.trace("Connecting to database...");
             em.getTransaction().begin();
             em.persist(result);
             em.getTransaction().commit();
-
+            getEasyResults();
         } finally{
             em.close();
         }
@@ -80,10 +85,38 @@ public class Leaderboard {
      * @return the list of the 10 best results with respect
      * to the time spent for winning the game
      */
-    public List<Result> getResults() {
+    public static List<Result> getEasyResults() {
         EntityManager em = emf.createEntityManager();
         try {
-            return em.createQuery("SELECT r FROM Result r WHERE r.didwin = true ORDER BY r.secondsTaken", Result.class)
+            logger.trace("Connecting to the database to get the results...");
+            return em.createQuery("SELECT r FROM Result r WHERE r.didwin = true AND r.difficulty LIKE :difficulty ORDER BY r.secondsTaken", Result.class)
+                    .setParameter("difficulty", "easy")
+                    .setMaxResults(10)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static List<Result> getNormalResults() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            logger.trace("Connecting to the database to get the results...");
+            return em.createQuery("SELECT r FROM Result r WHERE r.didwin = true AND r.difficulty LIKE :difficulty ORDER BY r.secondsTaken", Result.class)
+                    .setParameter("difficulty", "normal")
+                    .setMaxResults(10)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static List<Result> getHardResults() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            logger.trace("Connecting to the database to get the results...");
+            return em.createQuery("SELECT r FROM Result r WHERE r.didwin = true AND r.difficulty LIKE :difficulty ORDER BY r.secondsTaken", Result.class)
+                    .setParameter("difficulty", "hard")
                     .setMaxResults(10)
                     .getResultList();
         } finally {
@@ -94,7 +127,7 @@ public class Leaderboard {
     /**
      * Initializes the starting timestamp.
      */
-    public void initStartingDate(){
+    public static void initStartingDate(){
         startingDate = LocalDateTime.now();
         startTime = System.currentTimeMillis();
     }
@@ -102,7 +135,11 @@ public class Leaderboard {
     /**
      * Assigns true to the didwin variable if the player lost or true if the player won.
      */
-    public void setDidwin(boolean didwin) {
+    public static void setDidwin(boolean didwin) {
         Leaderboard.didwin = didwin;
+    }
+
+    public static void setDifficulty(String difficulty) {
+        Leaderboard.difficulty = difficulty;
     }
 }
