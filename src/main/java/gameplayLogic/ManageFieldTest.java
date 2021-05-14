@@ -148,4 +148,4 @@ public class ManageFieldTest {
         assertTrue(ManageField.withinGrid(0, 0));
         assertTrue(ManageField.withinGrid(8, 8));
     }
-} 
+}
