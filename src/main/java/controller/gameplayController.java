@@ -32,7 +32,6 @@ public class GameplayController {
     @FXML
     private Button forfeitButton;
 
-
     public void forfeitAction(ActionEvent actionEvent){
         logger.trace("The user forfeited the game.");
         lost();
@@ -54,11 +53,11 @@ public class GameplayController {
                 if( actionEvent.getSource().equals(buttonsList.get(i).get(j))){
                     if(actionEvent.getButton() == MouseButton.SECONDARY ){
 
-                        ManageField.flagAField(i,j);
-                        printState();
+                         ManageField.flagAField(i,j);
+                            printState();
                     }
                     else if(ManageField.openAField(i,j)) {
-                        decideState();
+                            decideState();
                     }
                     break;
                 }
@@ -77,14 +76,15 @@ public class GameplayController {
             printState();
         }
     }
+
     public void won(){
         logger.trace("The player won!");
         forfeitButton.setVisible(false);
         continueButton.setVisible(true);
         printEndState();
         Leaderboard.setDidwin(true);
-
     }
+
     public void lost(){
         logger.trace("The player lost!");
         forfeitButton.setVisible(false);
@@ -116,7 +116,10 @@ public class GameplayController {
         for( int i = 0; i < buttonsList.size(); i++){
             for( int j = 0; j< buttonsList.get(i).size(); j++){
 
-                if(field[i][j].isFlagged()){
+                if(field[i][j].isMine()){
+                    buttonsList.get(i).get(j).setText("M");
+                }
+                else if(field[i][j].isFlagged()){
                     buttonsList.get(i).get(j).setText("F");
                 }
                 else if(field[i][j].isClicked() ){

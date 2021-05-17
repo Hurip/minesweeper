@@ -1,4 +1,3 @@
-
 # Created by https://www.gitignore.io/api/maven,intellij+all
 # Edit at https://www.gitignore.io/?templates=maven,intellij+all
 
@@ -103,6 +102,5 @@ buildNumber.properties
 
 ### Database stuff ###
 db.properties
-
 
 # End of https://www.gitignore.io/api/maven,intellij+all

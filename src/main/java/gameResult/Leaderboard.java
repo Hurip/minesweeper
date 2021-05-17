@@ -2,7 +2,6 @@ package gameResult;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -28,9 +27,9 @@ public class Leaderboard {
     private static long startTime;
 
     /**
-     * The timestamp when the game ended in miliseconds.
+     * The timestamp when the game ended in milliseconds.
      */
-    private long endTime;
+    private static long endTime;
 
     /**
      * Indicates whether the player has won or not.
@@ -42,7 +41,7 @@ public class Leaderboard {
      */
     private static String difficulty;
 
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("minesweeper");
+    private static EntityManagerFactory emf;
 
     /**
      * Assigns true to the didwin variable if the player lost or true if the player won.
@@ -60,6 +59,7 @@ public class Leaderboard {
      */
     public static void setDifficulty(String difficulty) {
         Leaderboard.difficulty = difficulty;
+        emf = Persistence.createEntityManagerFactory("minesweeper");
     }
 
     /**
@@ -80,6 +80,8 @@ public class Leaderboard {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         logger.trace("Saving result...");
+
+        Result result = new Result();
         result.setName(name);
         result.setSecondsTaken( (endTime - startTime) / 1000F);
         result.setStartingDate(startingDate.format(formatter) );
@@ -91,7 +93,7 @@ public class Leaderboard {
     }
 
     /**
-     *  * Uploads the result into the database.
+     * Uploads the result into the database.
      *
      * @param result the result that needs to be uploaded
      */
@@ -111,6 +113,7 @@ public class Leaderboard {
     /**
      * Returns the 10 best results of a difficulty type with respect to the time
      * spent for winning the game.
+     *
      * @param difficulty indicates which difficulty's leaderboard to get
      * @return the list of the 10 best results of a difficulty type with respect
      * to the time spent for winning the game

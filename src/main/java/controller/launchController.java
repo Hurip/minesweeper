@@ -17,26 +17,26 @@ public class LaunchController {
 
     private static final Logger logger = LoggerFactory.getLogger(LaunchController.class);
 
-    public void exitSelected(ActionEvent actionEvent) {
+    public void exitSelected(ActionEvent actionEvent){
         System.exit(0);
     }
 
-    public void leaderboardSelected(ActionEvent actionEvent) throws IOException {
+    public void leaderboardSelected(ActionEvent actionEvent) throws IOException{
         logger.trace("Leaderboard selected. Loading the leaderboard...");
-        Leaderboard.setDifficulty("leaderboard");
 
+        Leaderboard.setDifficulty("leaderboard");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/leaderboard.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
 
-    }
 
+    }
 
     public void easySelected(ActionEvent actionEvent) throws IOException {
         logger.trace("The chosen difficulty is easy. Loading next scene...");
-        ManageField.initField(9, 10);
+        ManageField.initField(9,10);
         ManageField.randomizeMines();
         Leaderboard.setDifficulty("easy");
 
@@ -50,9 +50,9 @@ public class LaunchController {
 
     }
 
-    public void normalSelected(ActionEvent actionEvent) throws IOException {
+    public void normalSelected(ActionEvent actionEvent) throws IOException{
         logger.trace("The chosen difficulty is normal. Loading next scene...");
-        ManageField.initField(12, 20);
+        ManageField.initField(12,20);
         ManageField.randomizeMines();
         Leaderboard.setDifficulty("normal");
 
@@ -65,9 +65,9 @@ public class LaunchController {
         Leaderboard.initStartingDate();
     }
 
-    public void hardSelected(ActionEvent actionEvent) throws IOException {
+    public void hardSelected(ActionEvent actionEvent) throws IOException{
         logger.trace("The chosen difficulty is hard. Loading next scene...");
-        ManageField.initField(15, 40);
+        ManageField.initField(15,40);
         ManageField.randomizeMines();
         Leaderboard.setDifficulty("hard");
 
@@ -80,4 +80,3 @@ public class LaunchController {
         Leaderboard.initStartingDate();
     }
 }
-

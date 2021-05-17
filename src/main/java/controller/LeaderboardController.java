@@ -20,9 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class LeaderboardController {
-
     private static final Logger logger = LoggerFactory.getLogger(LeaderboardController.class);
-
 
     @FXML
     private TableView<Result> leaderboardTable;
@@ -35,7 +33,6 @@ public class LeaderboardController {
 
     @FXML
     private TableColumn<Result, Float> secondsTaken;
-
 
     public void exitSelected(ActionEvent actionEvent){
         System.exit(0);
@@ -60,6 +57,7 @@ public class LeaderboardController {
         stage.setScene(new Scene(root));
         stage.show();
     }
+
     public void printLeaderboard( String difficulty){
         logger.trace("Printing the results onto the leaderboard.");
         List<Result> topList = Leaderboard.getResults(difficulty);

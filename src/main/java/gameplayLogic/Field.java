@@ -1,6 +1,5 @@
 package gameplayLogic;
 
-
 /**
  * Class representing the game's minefield.
  */
